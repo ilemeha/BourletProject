@@ -22,6 +22,7 @@ namespace BOU2.Pages
         private IWebElement LoginInput => _driver.FindElement(By.Id("username"));
         private IWebElement PasswordInput => _driver.FindElement(By.Id("password"));
         private IWebElement ClickLogin => _driver.FindElement(By.ClassName("MuiButton-label"));
+        private IWebElement CheckTitle => _driver.FindElement(By.Id("pageTitle"));
 
         public string VerifyLoginPage()
         {
@@ -37,5 +38,11 @@ namespace BOU2.Pages
         {
             ClickLogin.Click();
         }
+        public string CheckPageTitle()
+        {
+            return CheckTitle.Text;
+        }
     }
 }
+
+

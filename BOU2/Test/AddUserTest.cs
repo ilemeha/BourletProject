@@ -1,35 +1,29 @@
 ﻿using BOU2.Configuration;
-using BOU2.TestData;
 using BOU2.Pages;
+using BOU2.TestData;
 using BOU2.WebDriver;
 using NUnit.Framework;
+using Shouldly;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
 using System.Threading;
-using Shouldly;
+using System.Threading.Tasks;
 
-namespace BOU2.Pages
+namespace BOU2.Test
 {
-
     [TestFixture]
-    public class LoginTest
+    public class AddUserTest
     {
-
         [Test]
-        public void Login()
+        public void AddUser()
         {
             var loginInfo = new LoginData();
-
-
+            var person = new Person();
             using (var driver = DriverUtils.CreateWebDriver())
             {
-                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(50);
                 driver.Navigate().GoToUrl(Config.GetURL());
 
                 var loginAccess = new LoginPage(driver);
@@ -40,8 +34,15 @@ namespace BOU2.Pages
                 loginAccess.CheckPageTitle().ShouldBe("CUSTOMER JOBS");
                 Thread.Sleep(5000);
 
+                var addUser = new AddUserPage(driver);
+                addUser.ClickNavUsers();
+                addUser.CheckTitle().ShouldBe("USERS");
+                Thread.Sleep(5000);
+                addUser.ClickAddUser();
+                Thread.Sleep(5000);
+                addUser.CheckNewUserTitle().ShouldBe("Create New User");
+                Thread.Sleep(5000);
             }
         }
     }
-
 }
