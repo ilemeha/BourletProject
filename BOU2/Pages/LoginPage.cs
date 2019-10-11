@@ -24,6 +24,9 @@ namespace BOU2.Pages
         private IWebElement ClickLogin => _driver.FindElement(By.ClassName("MuiButton-label"));
         private IWebElement CheckTitle => _driver.FindElement(By.Id("pageTitle"));
 
+     
+
+
         public string VerifyLoginPage()
         {
             return LoginPageOpen.Text;

@@ -10,6 +10,10 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium;
 
 namespace BOU2.Test
 {
@@ -25,6 +29,7 @@ namespace BOU2.Test
             {
                 driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(50);
                 driver.Navigate().GoToUrl(Config.GetURL());
+             
 
                 var loginAccess = new LoginPage(driver);
                 loginAccess.VerifyLoginPage().ShouldBe("Bourlet Jobs Login");
@@ -32,16 +37,31 @@ namespace BOU2.Test
                 loginAccess.ClickLoginButton();
                 Thread.Sleep(5000);
                 loginAccess.CheckPageTitle().ShouldBe("CUSTOMER JOBS");
-                Thread.Sleep(5000);
+                Thread.Sleep(2000);
 
                 var addUser = new AddUserPage(driver);
                 addUser.ClickNavUsers();
                 addUser.CheckTitle().ShouldBe("USERS");
-                Thread.Sleep(5000);
+                Thread.Sleep(2000);
                 addUser.ClickAddUser();
-                Thread.Sleep(5000);
+                Thread.Sleep(2000);
                 addUser.CheckNewUserTitle().ShouldBe("Create New User");
-                Thread.Sleep(5000);
+                Thread.Sleep(2000);
+                addUser.FillOutNewUserName(person);
+                Thread.Sleep(2000);
+                addUser.InputZip("50755");
+                // addUser.CreateNewPassword("ira88ira","ira88ira");
+                /*IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+                js.ExecuteScript("window.scrollTo(0, document.body.scrollHeight);");*/
+                Thread.Sleep(2000);
+                //addUser.ClickSubmitButton();
+                /*
+                var element = driver.FindElement(By.XPath("//button[@type='submit']"));
+                Actions actions = new Actions(driver);
+                actions.MoveToElement(element);
+                actions.Perform();
+                actions.Click();
+                Thread.Sleep(5000);*/
             }
         }
     }
